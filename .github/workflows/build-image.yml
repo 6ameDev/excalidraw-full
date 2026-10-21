@@ -16,10 +16,13 @@ jobs:
       packages: write
 
     steps:
+      # MODIFIED STEP: ENABLES SUBMODULE FETCHING
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: recursive  # Crucial: This pulls down the missing excalidraw directory code
+          fetch-depth: 0         # Ensures full history is parsed if required by building scripts
 
-      # THIS STEP CONVERTS YOUR REPO NAME TO LOWERCASE
       - name: Downcase repository name
         run: |
           echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
